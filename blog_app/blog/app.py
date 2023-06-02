@@ -5,8 +5,7 @@ from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel, ValidationError
 from blog_app.blog.commands import AlreadyExists, CreateArticleCommand
 from blog_app.blog.queries import GetArticleByIDQuery, ListArticlesQuery
-from blog_app.blog.models import NotFound
-from blog_app.blog.models import Article
+from blog_app.blog.models import Article, NotFound
 
 app = FastAPI()
 Article.create_table()
