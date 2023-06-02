@@ -85,3 +85,10 @@ class Article(BaseModel):
             "CREATE TABLE IF NOT EXISTS articles (id TEXT, author TEXT, title TEXT, content TEXT)"
         )
         conn.close()
+
+    @classmethod
+    def delete_all(cls):
+        with sqlite3.connect(os.getenv("DATABASE_NAME", "database.db")) as con:
+            cur = con.cursor()
+            cur.execute("DELETE FROM articles")
+            con.commit()

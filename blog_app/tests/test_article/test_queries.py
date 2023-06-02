@@ -23,6 +23,7 @@ def test_list_articles():
 
     assert len(query.execute()) == 2
 
+
 def test_get_article_by_id():
     """
     GIVEN ID of article stored in the database

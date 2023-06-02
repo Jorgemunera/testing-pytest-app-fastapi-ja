@@ -11,7 +11,8 @@ class ListArticlesQuery(BaseModel):
         articles = Article.list()
 
         return articles
-    
+
+
 class GetArticleByIDQuery(BaseModel):
     id: str
 
