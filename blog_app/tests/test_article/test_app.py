@@ -1,9 +1,10 @@
 from fastapi.testclient import TestClient
 from blog_app.blog.app import app
 import pytest
+import requests
 
 client = TestClient(app)
-
+DOMAIN = "http://localhost:3000"
 
 def new_article_body(author, title, content):
     return {
@@ -118,3 +119,17 @@ class TestGetMethods:
         assert parse_new_article in parse_get_articles
         assert parse_new_article_2 in parse_get_articles
 
+
+@pytest.mark.e2e
+def test_create_list_get():
+    body = new_article_body("john@doe.com", "New Article", "Some extra awesome content")
+    new_article = requests.post(DOMAIN+"/create-article/", json=body)
+    assert new_article.status_code == 200
+
+    get_articles = requests.get(DOMAIN+"/article-list")
+
+    parse_get_articles = get_articles.json()
+
+    get_one_article = requests.get(DOMAIN+f"/article/{parse_get_articles[0]['id']}/")
+
+    assert get_one_article.status_code == 200
